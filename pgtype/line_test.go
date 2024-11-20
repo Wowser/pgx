@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	pgx "github.com/wowser/pgx/v5"
+	"github.com/wowser/pgx/v5/pgtype"
+	"github.com/wowser/pgx/v5/pgxtest"
 )
 
 func TestLineTranscode(t *testing.T) {

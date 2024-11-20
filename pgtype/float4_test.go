@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgtype"
-	"github.com/jackc/pgx/v5/pgxtest"
+	"github.com/wowser/pgx/v5/pgtype"
+	"github.com/wowser/pgx/v5/pgxtest"
 )
 
 func TestFloat4Codec(t *testing.T) {

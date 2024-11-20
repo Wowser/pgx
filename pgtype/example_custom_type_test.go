@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/wowser/pgx/v5"
+	"github.com/wowser/pgx/v5/pgtype"
 )
 
 // Point represents a point that may be null.

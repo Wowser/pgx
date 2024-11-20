@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgconn"
-	"github.com/jackc/pgx/v5/pgxtest"
 	"github.com/stretchr/testify/require"
+	"github.com/wowser/pgx/v5"
+	"github.com/wowser/pgx/v5/pgconn"
+	"github.com/wowser/pgx/v5/pgxtest"
 )
 
 func TestConnCopyWithAllQueryExecModes(t *testing.T) {

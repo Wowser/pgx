@@ -10,12 +10,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/jackc/pgx/v5/pgxtest"
-	"github.com/jackc/pgx/v5/tracelog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/wowser/pgx/v5"
+	"github.com/wowser/pgx/v5/pgxpool"
+	"github.com/wowser/pgx/v5/pgxtest"
+	"github.com/wowser/pgx/v5/tracelog"
 	"golang.org/x/sync/errgroup"
 )
 

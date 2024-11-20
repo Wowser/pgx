@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/jackc/pgx/v5/pgtype"
+	"github.com/wowser/pgx/v5/pgtype"
 )
 
 /*

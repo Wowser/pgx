@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	pgx "github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
+	pgx "github.com/wowser/pgx/v5"
+	"github.com/wowser/pgx/v5/pgtype"
 )
 
 func TestRecordCodec(t *testing.T) {
