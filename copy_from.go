@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/wowser/pgx/v5/internal/pgio"
 	"github.com/wowser/pgx/v5/pgconn"
@@ -115,7 +116,7 @@ type copyFrom struct {
 	mode          QueryExecMode
 }
 
-func (ct *copyFrom) run(ctx context.Context) (int64, error) {
+func (ct *copyFrom) run(ctx context.Context, option ...string) (int64, error) {
 	if ct.conn.copyFromTracer != nil {
 		ctx = ct.conn.copyFromTracer.TraceCopyFromStart(ctx, ct.conn, TraceCopyFromStartData{
 			TableName:   ct.tableName,
@@ -199,7 +200,14 @@ func (ct *copyFrom) run(ctx context.Context) (int64, error) {
 		w.Close()
 	}()
 
-	commandTag, err := ct.conn.pgConn.CopyFrom(ctx, r, fmt.Sprintf("copy %s ( %s ) from stdin with (stream_mode true,format binary);", quotedTableName, quotedColumnNames))
+	var ops string
+	if len(option) > 0 {
+		options := strings.Join(option, ",")
+		ops = "with (format binary," + options + ")"
+	} else {
+		ops = "binary"
+	}
+	commandTag, err := ct.conn.pgConn.CopyFrom(ctx, r, fmt.Sprintf("copy %s ( %s ) from stdin %s", quotedTableName, quotedColumnNames, ops))
 
 	r.Close()
 	<-doneChan
@@ -262,7 +270,7 @@ func (ct *copyFrom) buildCopyBuf(buf []byte, sd *pgconn.StatementDescription) (b
 //
 // Even though enum types appear to be strings they still must be registered to use with CopyFrom. This can be done with
 // Conn.LoadType and pgtype.Map.RegisterType.
-func (c *Conn) CopyFrom(ctx context.Context, tableName Identifier, columnNames []string, rowSrc CopyFromSource) (int64, error) {
+func (c *Conn) CopyFrom(ctx context.Context, tableName Identifier, columnNames []string, rowSrc CopyFromSource, option ...string) (int64, error) {
 	ct := &copyFrom{
 		conn:          c,
 		tableName:     tableName,
@@ -272,5 +280,5 @@ func (c *Conn) CopyFrom(ctx context.Context, tableName Identifier, columnNames [
 		mode:          c.config.DefaultQueryExecMode,
 	}
 
-	return ct.run(ctx)
+	return ct.run(ctx, option...)
 }
